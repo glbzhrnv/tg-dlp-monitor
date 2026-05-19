@@ -65,7 +65,6 @@ async def login_post(request: Request, username: str = Form(...), password: str 
     if username == correct_username and password == correct_password:
         print("[POST /login] Успешный логин")
         
-        # Создаем HTML страницу с JavaScript редиректом
         html_content = """
         <!DOCTYPE html>
         <html>
@@ -90,18 +89,16 @@ async def login_post(request: Request, username: str = Form(...), password: str 
             "error": "Неверный логин или пароль"
         })
 
-@app.get("/logout")  # Важно: GET, а не POST
+@app.get("/logout")  
 async def logout():
     print("[GET /logout] Выход — удаляем cookie")
     
-    # Создаем ответ с редиректом
     response = Response(
         content="",
         status_code=302,
         headers={"Location": "/login"}
     )
     
-    # Удаляем cookie
     response.delete_cookie(
         key="session_token",
         path="/"
@@ -117,7 +114,6 @@ def require_auth(request: Request):
         raise HTTPException(status_code=303, headers={"Location": "/login"})
     print("[REQUIRE AUTH] Авторизован успешно")
 
-# Определения функций (выше использования)
 def safe_clean_text(text: str) -> str:
     if not text:
         return ""
@@ -265,7 +261,7 @@ async def disconnect_client():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# Фронтенд с авторизацией (проверка внутри)
+# Фронтенд с авторизацией 
 
 @app.get("/", include_in_schema=False)
 @app.get("/dashboard", include_in_schema=False)
