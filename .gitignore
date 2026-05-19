@@ -1,0 +1,49 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Telegram / Telethon sessions
+*.session
+*.session-journal
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Test/cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Large ML/OCR models
+backend/models/easyocr/
+backend/models/rubert-leak/
+
+# Datasets and generated experiment results
+backend/dataset.csv
+backend/figure_*.png
+backend/performance_graph.png
+backend/performance_results.csv
+backend/roc_curve_data.csv
+backend/performance_test.py
+backend/plot_performance.py

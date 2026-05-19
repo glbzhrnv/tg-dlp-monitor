@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Дашборд{% endblock %}
+
+{% block content %}
+<div class="px-4 py-6 sm:px-0">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Дашборд</h1>
+
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium text-gray-900">Подключённые источники</h3>
+                <p class="mt-1 text-3xl font-semibold text-indigo-600">{{ sources_count }}</p>
+            </div>
+        </div>
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium text-gray-900">Последних алертов</h3>
+                <p class="mt-1 text-3xl font-semibold text-red-600">{{ alerts|length }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg font-medium text-gray-900">Последние алерты</h3>
+        </div>
+        <div class="border-t border-gray-200">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Дата</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Чат</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SX Score</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Утечки</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for alert in alerts %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ alert.date }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ alert.chat_id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium {{ 'text-red-600' if alert.sx_score > 0.8 else 'text-yellow-600' }}">{{ alert.sx_score }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-900">
+                            {% for leak in alert.leaks %}
+                                {{ leak.type }}: {{ leak.value }}<br>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+fastapi==0.115.2
+uvicorn==0.30.6
+python-dotenv==1.0.1
+pydantic==2.9.2
+pydantic-settings==2.5.2
+telethon==1.37.0
+transformers==4.45.2          # RuBERT и другие модели HuggingFace           
+scikit-learn==1.5.2           # для метрик и пайплайна
+pandas==2.2.3                 # для работы с данными
+numpy==2.1.1
