@@ -1,5 +1,3 @@
-# analyzer.py — Улучшенный анализатор с дедупликацией и интеллектуальным группированием
-
 import re
 import logging
 from typing import List, Dict, Any, Tuple, Set
@@ -43,7 +41,7 @@ class LeakAnalyzer:
         else:
             logger.warning(f"CatBoost не найден по пути {catboost_path}. Используем только RuBERT+regex.")
 
-        # Иерархия типов утечек (для дедупликации)
+        # Иерархия типов утечек 
         self.type_hierarchy = {
             'passport_rf': 10,
             'login_password_pair': 10,
@@ -366,7 +364,7 @@ class LeakAnalyzer:
             weight = type_weights.get(leak["type"], 0.15)
             weighted_sum += leak["confidence"] * weight
 
-        # Бонус за разнообразие категорий (вместо простого количества типов)
+        # Бонус за разнообразие категорий
         category_combo_bonus = 0.0
         if num_categories >= 3:
             category_combo_bonus = 0.40
